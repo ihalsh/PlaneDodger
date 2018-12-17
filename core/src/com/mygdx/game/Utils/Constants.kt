@@ -10,6 +10,7 @@ class Constants {
         //General
         const val WORLD_WIDTH = 800f
         const val WORLD_HEIGHT = 600f
+        const val GAME_OVER_DELAY = 0.75f
 
         val GROUND = Ground::class.qualifiedName.toString()
         val STAR = Star::class.qualifiedName.toString()

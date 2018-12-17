@@ -12,11 +12,14 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode.NORMAL
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.TimeUtils.millis
@@ -41,6 +44,7 @@ object Assets : Disposable, AssetErrorListener {
             load("key-blank.png", Texture::class.java)
             load("sky.png", Texture::class.java)
             load("star.png", Texture::class.java)
+            load("undo.png", Texture::class.java)
             load("planeGreen0.png", Texture::class.java)
             load("planeGreen1.png", Texture::class.java)
             load("planeGreen2.png", Texture::class.java)
@@ -63,7 +67,7 @@ object Assets : Disposable, AssetErrorListener {
     //Music and sound
     val explosionSound: Sound by lazy { assetManager.get<Sound>("explosion.wav") }
     val sparkleSound: Sound by lazy { assetManager.get<Sound>("sparkle.mp3") }
-    val actionTheme: Music by lazy { assetManager.get<Music>("Prelude-and-Action.mp3") }
+    val backgroundMusic: Music by lazy { assetManager.get<Music>("Prelude-and-Action.mp3") }
 
     //Label style
     private val customFont = assetManager.get<FreeTypeFontGenerator>("OpenSans.ttf")
@@ -81,9 +85,9 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     //Image button style
-//    val restartButtonStyle = ButtonStyle()
-//            .apply { up = TextureRegionDrawable(TextureRegion(assetManager.get<Texture>("undo.png"))) }
-//
+    val restartButtonStyle = Button.ButtonStyle()
+            .apply { up = TextureRegionDrawable(TextureRegion(assetManager.get<Texture>("undo.png"))) }
+
 //    val muteButtonStyle = ButtonStyle()
 //            .apply { up = TextureRegionDrawable(TextureRegion(assetManager.get<Texture>("audio.png"))) }
 
@@ -120,6 +124,11 @@ object Assets : Disposable, AssetErrorListener {
                 .apply { playMode = LOOP }
     }
 
+    val restartAnimation: Animation<TextureRegion> by lazy {
+        Animation(1f, TextureRegion(assetManager.get<Texture>("undo.png")))
+                .apply { playMode = LOOP }
+    }
+
     //Load Animation From Files
     val planeGreenAnimation: Animation<TextureRegion> by lazy {
         val planeGreenTextures = Array<TextureRegion>().also {
@@ -138,21 +147,37 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     //Load Animation From Sheet
-//    val whirlpoolAnimation: Animation<TextureRegion> by lazy {
-//        val texture = Texture(assetManager.get<Pixmap>("whirlpool.png"), true)
-//                .apply { setFilter(Linear, Linear) }
-//
-//        val tempArray = TextureRegion.split(texture,
-//                texture.width / 5 /*cols*/,
-//                texture.height / 2 /*rows*/)
-//
-//        val textureArray = Array<TextureRegion>()
-//        for (r in 0 until 2)
-//            for (c in 0 until 5)
-//                textureArray.add(tempArray[r][c])
-//
-//        Animation(0.1f, textureArray, NORMAL)
-//    }
+    val sparklelAnimation: Animation<TextureRegion> by lazy {
+        val texture = Texture(assetManager.get<Pixmap>("sparkle.png"), true)
+                .apply { setFilter(Linear, Linear) }
+
+        val tempArray = TextureRegion.split(texture,
+                texture.width / 8 /*cols*/,
+                texture.height / 8 /*rows*/)
+
+        val textureArray = Array<TextureRegion>()
+        for (r in 0 until 8)
+            for (c in 0 until 8)
+                textureArray.add(tempArray[r][c])
+
+        Animation(0.02f, textureArray, NORMAL)
+    }
+
+    val explosionAnimation: Animation<TextureRegion> by lazy {
+        val texture = Texture(assetManager.get<Pixmap>("explosion.png"), true)
+                .apply { setFilter(Linear, Linear) }
+
+        val tempArray = TextureRegion.split(texture,
+                texture.width / 6 /*cols*/,
+                texture.height / 6 /*rows*/)
+
+        val textureArray = Array<TextureRegion>()
+        for (r in 0 until 6)
+            for (c in 0 until 6)
+                textureArray.add(tempArray[r][c])
+
+        Animation(0.02f, textureArray, NORMAL)
+    }
 
     override fun dispose() {
         info { "Assets disposed...Ok" }

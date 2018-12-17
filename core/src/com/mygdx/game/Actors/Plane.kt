@@ -7,11 +7,11 @@ import com.mygdx.game.Utils.Constants.Companion.GROUND
 class Plane(
         x: Float,
         y: Float,
-        s: Stage) : BaseActor(x, y, s,
-                    planeGreenAnimation,
-                    maxSpeed = 800f,
-                    acceleration = 800f, // simulate force of gravity
-                    numSides = 8) {
+        private val s: Stage) : BaseActor(x, y, s,
+        planeGreenAnimation,
+        maxSpeed = 800f,
+        acceleration = 800f, // simulate force of gravity
+        numSides = 8) {
 
     override fun act(delta: Float) {
         super.act(delta)
@@ -27,7 +27,7 @@ class Plane(
         }
 
         // stop plane from moving past top of screen
-        if (y + height > worldBounds.height) {
+        if (y + height > s.viewport.worldHeight) {
             setSpeed(0f)
             boundToWorld()
         }

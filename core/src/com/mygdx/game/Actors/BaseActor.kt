@@ -1,5 +1,6 @@
 package com.mygdx.game.Actors
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Batch
@@ -31,7 +32,7 @@ open class BaseActor(x: Float,
                      val numSides: Int = 4) : Group() {
 
     init {
-        debug = true
+        debug = false
 
         setPosition(x, y)
 
