@@ -12,17 +12,11 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.Texture.TextureFilter.Linear
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode.NORMAL
-import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.TimeUtils.millis
@@ -117,13 +111,21 @@ object Assets : Disposable, AssetErrorListener {
     }
 
     //Load Animation From Files
-//    val turtleAnimation: Animation<TextureRegion> by lazy {
-//        val turtleTextures = Array<TextureRegion>().also {
-//            it.size = 6
-//            for (i in 0..5) it[i] = TextureRegion(assetManager.get<Texture>("turtle-${i + 1}.png"))
-//        }
-//        Animation(0.1f, turtleTextures, LOOP)
-//    }
+    val planeGreenAnimation: Animation<TextureRegion> by lazy {
+        val planeGreenTextures = Array<TextureRegion>().also {
+            it.size = 3
+            for (i in 0..2) it[i] = TextureRegion(assetManager.get<Texture>("planeGreen$i.png"))
+        }
+        Animation(0.1f, planeGreenTextures, LOOP)
+    }
+
+    val planeRedAnimation: Animation<TextureRegion> by lazy {
+        val planeRedTextures = Array<TextureRegion>().also {
+            it.size = 3
+            for (i in 0..2) it[i] = TextureRegion(assetManager.get<Texture>("planeRed$i.png"))
+        }
+        Animation(0.1f, planeRedTextures, LOOP)
+    }
 
     //Load Animation From Sheet
 //    val whirlpoolAnimation: Animation<TextureRegion> by lazy {

@@ -31,7 +31,7 @@ open class BaseActor(x: Float,
                      numSides: Int = 4) : Group() {
 
     init {
-        debug = false
+        debug = true
 
         setPosition(x, y)
 
@@ -44,19 +44,36 @@ open class BaseActor(x: Float,
         // set collision polygon
         val w = width
         val h = height
-        val vertices = FloatArray(2 * numSides)
-        for (i in 0 until numSides) {
-            val angle = i * 6.28f / numSides
-            // x-coordinate
-            vertices[2 * i] = w / 2 * MathUtils.cos(angle) + w / 2
-            // y-coordinate
-            vertices[2 * i + 1] = h / 2 * MathUtils.sin(angle) + h / 2
-        }
-        boundaryPolygon.apply {
-            setVertices(vertices)
-            setPosition(x, y)
-        }
 
+        if (numSides > 4) {
+            val vertices = FloatArray(2 * numSides)
+            for (i in 0 until numSides) {
+                val angle = i * 6.28f / numSides
+                // x-coordinate
+                vertices[2 * i] = w / 2 * MathUtils.cos(angle) + w / 2
+                // y-coordinate
+                vertices[2 * i + 1] = h / 2 * MathUtils.sin(angle) + h / 2
+            }
+            boundaryPolygon.apply {
+                setVertices(vertices)
+                setPosition(x, y)
+            }
+        } else {
+            val vertices = FloatArray(2 * numSides).apply {
+                this[0] = 0f
+                this[1] = 0f
+                this[2] = w
+                this[3] = 0f
+                this[4] = w
+                this[5] = h
+                this[6] = 0f
+                this[7] = h
+            }
+            boundaryPolygon.apply {
+                setVertices(vertices)
+                setPosition(x, y)
+            }
+        }
         stage.addActor(this)
     }
 
