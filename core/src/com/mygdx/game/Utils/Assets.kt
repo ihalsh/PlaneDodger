@@ -106,10 +106,15 @@ object Assets : Disposable, AssetErrorListener {
 //    }
 
     //Single Texture Animation
-//    val oceansideAnimation: Animation<TextureRegion> by lazy {
-//        Animation(1f, TextureRegion(assetManager.get<Texture>("oceanside.png")))
-//                .apply { playMode = LOOP }
-//    }
+    val skyAnimation: Animation<TextureRegion> by lazy {
+        Animation(1f, TextureRegion(assetManager.get<Texture>("sky.png")))
+                .apply { playMode = LOOP }
+    }
+
+    val groundAnimation: Animation<TextureRegion> by lazy {
+        Animation(1f, TextureRegion(assetManager.get<Texture>("ground.png")))
+                .apply { playMode = LOOP }
+    }
 
     //Load Animation From Files
 //    val turtleAnimation: Animation<TextureRegion> by lazy {
