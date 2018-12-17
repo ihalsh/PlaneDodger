@@ -27,8 +27,8 @@ open class BaseActor(x: Float,
                      private val acceleration: Float = 0f,
                      private val maxSpeed: Float = 3000f,
                      private val deceleration: Float = 0f,
-                     private val boundaryPolygon: Polygon = Polygon(),
-                     numSides: Int = 4) : Group() {
+                     val boundaryPolygon: Polygon = Polygon(),
+                     val numSides: Int = 4) : Group() {
 
     init {
         debug = true

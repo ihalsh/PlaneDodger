@@ -110,6 +110,11 @@ object Assets : Disposable, AssetErrorListener {
                 .apply { playMode = LOOP }
     }
 
+    val starAnimation: Animation<TextureRegion> by lazy {
+        Animation(1f, TextureRegion(assetManager.get<Texture>("star.png")))
+                .apply { playMode = LOOP }
+    }
+
     //Load Animation From Files
     val planeGreenAnimation: Animation<TextureRegion> by lazy {
         val planeGreenTextures = Array<TextureRegion>().also {
