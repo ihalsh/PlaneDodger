@@ -115,6 +115,11 @@ object Assets : Disposable, AssetErrorListener {
                 .apply { playMode = LOOP }
     }
 
+    val gameOverAnimation: Animation<TextureRegion> by lazy {
+        Animation(1f, TextureRegion(assetManager.get<Texture>("game-over.png")))
+                .apply { playMode = LOOP }
+    }
+
     //Load Animation From Files
     val planeGreenAnimation: Animation<TextureRegion> by lazy {
         val planeGreenTextures = Array<TextureRegion>().also {

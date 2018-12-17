@@ -1,5 +1,6 @@
 package com.mygdx.game.Utils
 
+import com.mygdx.game.Actors.Enemy
 import com.mygdx.game.Actors.Ground
 import com.mygdx.game.Actors.Star
 
@@ -12,5 +13,6 @@ class Constants {
 
         val GROUND = Ground::class.qualifiedName.toString()
         val STAR = Star::class.qualifiedName.toString()
+        val ENEMY = Enemy::class.qualifiedName.toString()
     }
 }
